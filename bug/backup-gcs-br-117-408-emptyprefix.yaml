@@ -10,6 +10,6 @@ spec:
     sendCredToTikv: true
   gcs:
     projectId: pingcap-real-testing-account
-    bucket: lyl-backup-bug-test
+    bucket: lyl-backup-bug-test-br-117-408-emptyprefix
     prefix: ""
     secretName: gcs-secret

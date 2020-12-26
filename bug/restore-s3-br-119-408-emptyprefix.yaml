@@ -10,6 +10,6 @@ spec:
   s3:
     provider: aws
     secretName: s3-secret
-    bucket: lyl-backup-bug-test
+    bucket: lyl-backup-bug-test-br-119-408-emptyprefix
     prefix: ""
     region: us-west-2
