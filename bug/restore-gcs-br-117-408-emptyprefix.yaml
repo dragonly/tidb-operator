@@ -1,0 +1,14 @@
+apiVersion: pingcap.com/v1alpha1
+kind: Restore
+metadata:
+  name: bug-restore-gcs-br-117-408-emptyprefix
+  namespace: default
+spec:
+  br:
+    cluster: basic
+    sendCredToTikv: true
+  gcs:
+    projectId: pingcap-real-testing-account
+    bucket: lyl-backup-bug-test
+    prefix: ""
+    secretName: gcs-secret

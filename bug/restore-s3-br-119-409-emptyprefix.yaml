@@ -1,0 +1,15 @@
+---
+apiVersion: pingcap.com/v1alpha1
+kind: Restore
+metadata:
+  name: bug-restore-s3-br-119-409-emptyprefix
+  namespace: default
+spec:
+  br:
+    cluster: basic
+  s3:
+    provider: aws
+    secretName: s3-secret
+    bucket: lyl-backup-bug-test
+    prefix: ""
+    region: us-west-2

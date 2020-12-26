@@ -1,0 +1,15 @@
+---
+apiVersion: pingcap.com/v1alpha1
+kind: Backup
+metadata:
+  name: bug-backup-gcs-br-117-408-slashprefix
+  namespace: default
+spec:
+  br:
+    cluster: basic
+    sendCredToTikv: true
+  gcs:
+    projectId: pingcap-real-testing-account
+    bucket: lyl-backup-bug-test
+    prefix: br-117-408-prefix/
+    secretName: gcs-secret

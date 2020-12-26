@@ -1,0 +1,15 @@
+---
+apiVersion: pingcap.com/v1alpha1
+kind: Backup
+metadata:
+  name: bug-backup-s3-br-119-408-slashprefix
+  namespace: default
+spec:
+  br:
+    cluster: basic
+  s3:
+    provider: aws
+    secretName: s3-secret
+    bucket: lyl-backup-bug-test
+    prefix: br-119-408-prefix/
+    region: us-west-2
