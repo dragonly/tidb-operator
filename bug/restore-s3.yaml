@@ -1,0 +1,19 @@
+---
+apiVersion: pingcap.com/v1alpha1
+kind: Restore
+metadata:
+  name: demo2-restore-s3-409
+  namespace: default
+spec:
+  to:
+    host: basic-tidb
+    port: 4000
+    user: root
+    secretName: backup-demo1-tidb-secret
+  s3:
+    provider: aws
+    secretName: s3-secret
+    path: s3://lyl-backup/test2-demo2-408/backup-2020-12-25T13:48:58Z.tgz
+    region: us-west-2
+  # storageClassName: local-storage
+  storageSize: 1Gi

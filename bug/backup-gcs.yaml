@@ -1,0 +1,26 @@
+---
+apiVersion: pingcap.com/v1alpha1
+kind: Backup
+metadata:
+  name: demo1-backup-gcs-408
+  namespace: default
+spec:
+  # cleanPolicy: OnFailure
+  # resources:
+  #   limits:
+  #     cpu: 300m
+  #     memory: 300Mi
+  #   requests:
+  #     memory: 300Mi
+  from:
+    host: basic-tidb
+    port: 4000
+    user: root
+    secretName: backup-demo1-tidb-secret
+  gcs:
+    projectId: pingcap-real-testing-account
+    bucket: lyl-backup
+    prefix: test2-demo2-408
+    secretName: gcs-secret
+  # storageClassName: standard
+  storageSize: 1Gi

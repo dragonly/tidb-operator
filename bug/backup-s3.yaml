@@ -1,0 +1,21 @@
+---
+apiVersion: pingcap.com/v1alpha1
+kind: Backup
+metadata:
+  name: demo1-backup-s3-408
+  namespace: default
+spec:
+  # cleanPolicy: OnFailure
+  from:
+    host: basic-tidb
+    port: 4000
+    user: root
+    secretName: backup-demo1-tidb-secret
+  s3:
+    provider: aws
+    secretName: s3-secret
+    bucket: lyl-backup
+    prefix: test2-demo2-408
+    region: us-west-2
+  # storageClassName: local-storage
+  storageSize: 1Gi
