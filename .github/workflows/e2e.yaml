@@ -89,16 +89,16 @@ jobs:
       - name: Get matrix jobs
         id: set-matrix
         run: |
-          echo "::set-output name=matrix::{\"include\":[{\"job\":\"Multicluster\"},{\"job\":\"Basic\"}]}"
+          echo "::set-output name=matrix::{\"include\":[{\"job\":\"should work in\"},{\"job\":\"should switch between pod network and host network\"},{\"job\":\"should upgrade TidbCluster with webhook enabled\"},{\"job\":\"should backup and restore TiDB Cluster\"},{\"job\":\"should keep tidb service in sync\"},{\"job\":\"should adopt helm created pump with TidbCluster CR\"},{\"job\":\"should migrate from helm to CR\"},{\"job\":\"should manage tidb monitor normally\"},{\"job\":\"can be paused and resumed\"},{\"job\":\"should clear TiDB failureMembers when scale TiDB to zero\"},{\"job\":\"should auto scale TiKV pods\"},{\"job\":\"should auto scale TiDB pods\"},{\"job\":\"should enable TLS for MySQL Client and between TiDB components\"},{\"job\":\"should enable TLS for MySQL Client and between Heterogeneous TiDB components\"},{\"job\":\"should ensure changing TiDB service annotations\"},{\"job\":\"should join heterogeneous cluster into an existing cluster\"},{\"job\":\"Feature: CDC\"},{\"job\":\"forbid to scale in TiKV and the state of all stores are up\"},{\"job\":\"TiKV should mount multiple pvc\"}]}"
   e2e-cases:
     needs: ["build"]
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      # matrix: ${{fromJson(needs.build.outputs.matrix)}}
-      matrix:
-        job:
-          - one
+      matrix: ${{fromJson(needs.build.outputs.matrix)}}
+      # matrix:
+      #   job:
+      #     - one
     steps:
       - name: Set up Go 1.13
         uses: actions/setup-go@v1
@@ -131,7 +131,7 @@ jobs:
           echo "info: create pingcap namespace for configurations"
           kubectl create ns pingcap
         working-directory: ${{ github.workspace }}/go/src/github.com/${{ github.repository }}
-      - name: e2e-(${{ matrix.job }})
+      - name: e2e-(${{ matrix.specName }})
         run: |
-          SKIP_BUILD=y SKIP_IMAGE_BUILD=y SKIP_UP=y DOCKER_REPO=ghcr.io/dragonly/tidb-operator IMAGE_TAG=${{ github.sha }} ./hack/e2e.sh
+          SKIP_BUILD=y SKIP_IMAGE_BUILD=y SKIP_UP=y DOCKER_REPO=ghcr.io/dragonly/tidb-operator IMAGE_TAG=${{ github.sha }} ./hack/e2e.sh -- --ginkgo.focus='${{ matrix.job }}'
         working-directory: ${{ github.workspace }}/go/src/github.com/${{ github.repository }}
