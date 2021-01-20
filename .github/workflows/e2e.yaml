@@ -89,16 +89,16 @@ jobs:
       - name: Get matrix jobs
         id: set-matrix
         run: |
-          echo "::set-output name=matrix::{\"include\":[{\"job\":\"should\\swork\\sin\"},{\"job\":\"should\\sswitch\\sbetween\\spod\\snetwork\\sand\\shost\\snetwork\"},{\"job\":\"should\\supgrade\\sTidbCluster\\swith\\swebhook\\senabled\"},{\"job\":\"should\\sbackup\\sand\\srestore\\sTiDB\\sCluster\"},{\"job\":\"should\\skeep\\stidb\\sservice\\sin\\ssync\"},{\"job\":\"should\\sadopt\\shelm\\screated\\spump\\swith\\sTidbCluster\\sCR\"},{\"job\":\"should\\smigrate\\sfrom\\shelm\\sto\\sCR\"},{\"job\":\"should\\smanage\\stidb\\smonitor\\snormally\"},{\"job\":\"can\\sbe\\spaused\\sand\\sresumed\"},{\"job\":\"should\\sclear\\sTiDB\\sfailureMembers\\swhen\\sscale\\sTiDB\\sto\\szero\"},{\"job\":\"should\\sauto\\sscale\\sTiKV\\spods\"},{\"job\":\"should\\sauto\\sscale\\sTiDB\\spods\"},{\"job\":\"should\\senable\\sTLS\\sfor\\sMySQL\\sClient\\sand\\sbetween\\sTiDB\\scomponents\"},{\"job\":\"should\\senable\\sTLS\\sfor\\sMySQL\\sClient\\sand\\sbetween\\sHeterogeneous\\sTiDB\\scomponents\"},{\"job\":\"should\\sensure\\schanging\\sTiDB\\sservice\\sannotations\"},{\"job\":\"should\\sjoin\\sheterogeneous\\scluster\\sinto\\san\\sexisting\\scluster\"},{\"job\":\"Feature:\\sCDC\"},{\"job\":\"forbid\\sto\\sscale\\sin\\sTiKV\\sand\\sthe\\sstate\\sof\\sall\\sstores\\sare\\sup\"},{\"job\":\"TiKV\\sshould\\smount\\smultiple\\spvc\"}]}"
+          echo "::set-output name=matrix::{\"include\":[{\"job\":\"should work in\"},{\"job\":\"should switch between pod network and host network\"},{\"job\":\"should upgrade TidbCluster with webhook enabled\"},{\"job\":\"should backup and restore TiDB Cluster\"},{\"job\":\"should keep tidb service in sync\"},{\"job\":\"should adopt helm created pump with TidbCluster CR\"},{\"job\":\"should migrate from helm to CR\"},{\"job\":\"should manage tidb monitor normally\"},{\"job\":\"can be paused and resumed\"},{\"job\":\"should clear TiDB failureMembers when scale TiDB to zero\"},{\"job\":\"should auto scale TiKV pods\"},{\"job\":\"should auto scale TiDB pods\"},{\"job\":\"should enable TLS for MySQL Client and between TiDB components\"},{\"job\":\"should enable TLS for MySQL Client and between Heterogeneous TiDB components\"},{\"job\":\"should ensure changing TiDB service annotations\"},{\"job\":\"should join heterogeneous cluster into an existing cluster\"},{\"job\":\"Feature: CDC\"},{\"job\":\"forbid to scale in TiKV and the state of all stores are up\"},{\"job\":\"TiKV should mount multiple pvc\"}]}"
   e2e-cases:
     needs: ["build"]
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      matrix: ${{fromJson(needs.build.outputs.matrix)}}
-      # matrix:
-      #   job:
-      #     - one
+      # matrix: ${{fromJson(needs.build.outputs.matrix)}}
+      matrix:
+        job:
+          - should\swork\sin
     steps:
       - name: Set up Go 1.13
         uses: actions/setup-go@v1
