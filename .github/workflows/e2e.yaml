@@ -89,7 +89,7 @@ jobs:
       - name: Get matrix jobs
         id: set-matrix
         run: |
-          echo "::set-output name=matrix::{\"include\":[{\"job\":\"TiDBCluster\sshould\skeep\stidb\sservice\sin\ssync\"}]}"
+          echo "::set-output name=matrix::[{\"job\":\"TiDBCluster\sshould\skeep\stidb\sservice\sin\ssync\"}]"
   e2e-cases:
     needs: ["build"]
     runs-on: ubuntu-latest
