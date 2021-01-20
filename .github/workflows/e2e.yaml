@@ -59,7 +59,7 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.CR_PAT }}
-      - name: Build and push
+      - name: Build and push tidb-backup-manager
         uses: docker/build-push-action@v2
         with:
           context: ${{ github.workspace }}/go/src/github.com/${{ github.repository }}/images/tidb-backup-manager
@@ -68,7 +68,7 @@ jobs:
           push: true
           tags: |
             ghcr.io/dragonly/tidb-operator/tidb-backup-manager:${{ github.sha }}
-      - name: Build and push
+      - name: Build and push tidb-operator
         uses: docker/build-push-action@v2
         with:
           context: ${{ github.workspace }}/go/src/github.com/${{ github.repository }}/images/tidb-operator
@@ -77,7 +77,7 @@ jobs:
           push: true
           tags: |
             ghcr.io/dragonly/tidb-operator/tidb-operator:${{ github.sha }}
-      - name: Build and push
+      - name: Build and push tidb-operator-e2e
         uses: docker/build-push-action@v2
         with:
           context: ${{ github.workspace }}/go/src/github.com/${{ github.repository }}/tests/images/e2e
@@ -91,32 +91,32 @@ jobs:
         run: |
           echo "::set-output name=matrix::{\"include\":[{\"job\":\"Multicluster\"},{\"job\":\"Basic\"}]}"
   e2e-cases:
-    needs: ["image-build"]
+    needs: ["build"]
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      matrix: ${{fromJson(needs.image-build.outputs.matrix)}}
+      # matrix: ${{fromJson(needs.build.outputs.matrix)}}
+      matrix:
+        job:
+          - one
     steps:
       - name: Set up Go 1.13
         uses: actions/setup-go@v1
         with:
           go-version: 1.13
         id: go
-
-      - name: Check out code into the Go module directory
+      - name: Checkout code
         uses: actions/checkout@v2
         with:
           ref: ${{ github.event.pull_request.head.sha }}
           path: go/src/github.com/${{ github.repository }}
-
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v1
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.CR_PAT }}
-
-      - name: Creating kind cluster
+      - name: Create kind cluster
         run: |
           SKIP_DOWN=y SKIP_BUILD=y SKIP_IMAGE_BUILD=y SKIP_TEST=y KUBE_WORKERS=0 ./hack/e2e.sh
           echo "info: waiting for all nodes to be ready"
@@ -131,8 +131,7 @@ jobs:
           echo "info: create pingcap namespace for configurations"
           kubectl create ns pingcap
         working-directory: ${{ github.workspace }}/go/src/github.com/${{ github.repository }}
-
-      - name: e2e(${{ matrix.job }})
+      - name: e2e-(${{ matrix.job }})
         run: |
-          SKIP_BUILD=y SKIP_IMAGE_BUILD=y SKIP_UP=y DOCKER_REPO=ghcr.io/dragonly/tidb-operator IMAGE_TAG=${{ github.sha }} ./hack/e2e.sh -- --ginkgo.focus='${{ matrix.job }}'
+          SKIP_BUILD=y SKIP_IMAGE_BUILD=y SKIP_UP=y DOCKER_REPO=ghcr.io/dragonly/tidb-operator IMAGE_TAG=${{ github.sha }} ./hack/e2e.sh
         working-directory: ${{ github.workspace }}/go/src/github.com/${{ github.repository }}
