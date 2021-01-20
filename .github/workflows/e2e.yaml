@@ -98,7 +98,7 @@ jobs:
       # matrix: ${{fromJson(needs.build.outputs.matrix)}}
       matrix:
         job:
-          - should\swork\sin
+          - should work in
     steps:
       - name: Set up Go 1.13
         uses: actions/setup-go@v1
