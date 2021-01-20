@@ -95,10 +95,10 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      # matrix: ${{fromJson(needs.build.outputs.matrix)}}
-      matrix:
-        job:
-          - should work in
+      matrix: ${{fromJson(needs.build.outputs.matrix)}}
+      # matrix:
+      #   job:
+      #     - should work in
     steps:
       - name: Set up Go 1.13
         uses: actions/setup-go@v1
