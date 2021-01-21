@@ -44,4 +44,6 @@ if __name__ == '__main__':
     github_action_matrix = {
         'job': spec_names
     }
-    print(json.dumps(github_action_matrix).replace('"', '\\"'))
+    ret = json.dumps(github_action_matrix).replace('"', '\\"')
+    print(ret)
+    return ret
