@@ -46,4 +46,3 @@ if __name__ == '__main__':
     }
     ret = json.dumps(github_action_matrix).replace('"', '\\"')
     print(ret)
-    return ret
