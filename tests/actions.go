@@ -751,7 +751,7 @@ func (oa *operatorActions) DeployTidbCluster(info *TidbClusterConfig) error {
 		return fmt.Errorf("failed to create secret of cluster [%s]: %v", info.ClusterName, err)
 	}
 
-	cmd := fmt.Sprintf("helm install %s  --name %s --namespace %s --set-string %s --set %s",
+	cmd := fmt.Sprintf("helm install %s --name %s --namespace %s --set-string %s --set %s",
 		oa.tidbClusterChartPath(info.OperatorTag), info.ClusterName, info.Namespace, info.TidbClusterHelmSetString(nil), info.TidbClusterHelmSetBoolean(nil))
 
 	svFilePath, err := info.BuildSubValues(oa.tidbClusterChartPath(info.OperatorTag))
