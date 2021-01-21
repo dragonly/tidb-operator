@@ -96,7 +96,7 @@ jobs:
       - name: Get matrix jobs
         id: set-matrix
         run: |
-          echo "ginkgo -focus='TiDBCluster' -dryRun tests/images/e2e/bin/e2e.test | hack/github/ginkgo.py"
+          echo "$(ginkgo -focus='TiDBCluster' -dryRun tests/images/e2e/bin/e2e.test | hack/github/ginkgo.py)"
         working-directory: ${{ github.workspace }}/go/src/github.com/${{ github.repository }}
   e2e-cases:
     needs: ["build"]
