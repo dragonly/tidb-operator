@@ -89,7 +89,7 @@ jobs:
       - name: Get matrix jobs
         id: set-matrix
         run: |
-          echo "::set-output name=matrix::{\"job\":[\"TiDBCluster.should.keep.tidb.service.in.sync\"]}"
+          echo "::set-output name=matrix::{\"job\": [\"TiDBCluster.should.switch.between.pod.network.and.host.network\", \"TiDBCluster.[Feature:.AutoFailover].should.clear.TiDB.failureMembers.when.scale.TiDB.to.zero\", \"TiDBCluster.[Feature:.TLS].should.enable.TLS.for.MySQL.Client.and.between.TiDB.components\", \"TiDBCluster.should.ensure.changing.TiDB.service.annotations.won't.change.TiDB.service.type.NodePort\", \"TiDBCluster.[Feature:.AutoScaling].should.auto.scale.TiKV.pods\", \"TiDBCluster.TiKV.should.mount.multiple.pvc\", \"TiDBCluster.when.deploy,.scale,.update.config.should.work.in.v4.0.4\", \"TiDBCluster.[Feature:.Heterogeneous.Cluster].should.join.heterogeneous.cluster.into.an.existing.cluster\", \"TiDBCluster.should.keep.tidb.service.in.sync\", \"TiDBCluster.should.manage.tidb.monitor.normally\", \"TiDBCluster.[Feature:.TLS].should.enable.TLS.for.MySQL.Client.and.between.Heterogeneous.TiDB.components\", \"TiDBCluster.should.upgrade.TidbCluster.with.webhook.enabled\", \"TiDBCluster.[Feature:.AutoScaling].should.auto.scale.TiDB.pods\", \"TiDBCluster.should.adopt.helm.created.pump.with.TidbCluster.CR\", \"TiDBCluster.when.stores.number.is.equal.to.3.forbid.to.scale.in.TiKV.and.the.state.of.all.stores.are.up\", \"TiDBCluster.should.backup.and.restore.TiDB.Cluster\", \"TiDBCluster.[Feature:.CDC]\", \"TiDBCluster.should.migrate.from.helm.to.CR\", \"TiDBCluster.when.deploy,.scale,.update.config.should.work.in.v3.1.1\", \"TiDBCluster.can.be.paused.and.resumed\"]}"
   e2e-cases:
     needs: ["build"]
     runs-on: ubuntu-latest
