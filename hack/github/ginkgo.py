@@ -26,7 +26,7 @@ def extract_ginkgo_specs(dryrun):
     ret = []
     for j in range(specs):
         name = '{} {}'.format(dryrun[i], dryrun[i+1])
-        ret.append(name.replace(' ', '.').replace('[', '\[').replace(']', '\]'))
+        ret.append(name.replace(' ', '.').replace('[', '\[').replace(']', '\]').replace("'", "\\'"))
         # print(j, 1, name)
         # print(j, 2, dryrun[i+2])
         i += 5
