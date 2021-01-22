@@ -24,14 +24,18 @@ def extract_ginkgo_specs(dryrun):
         i += 1
 
     # extract specs
-    ret = []
+    jobs = []
     for j in range(specs):
         name = '{} {}'.format(dryrun[i], dryrun[i+1])
-        ret.append(name.replace(' ', '.').replace('[', '.').replace(']', '.').replace("'", "."))
+        jobs.append(name.replace(' ', '.').replace('[', '.').replace(']', '.').replace("'", "."))
         # print(j, 1, name)
         # print(j, 2, dryrun[i+2])
         i += 5
 
+    ret = {
+        'jobs': jobs,
+        'job_ids': list(range(len(jobs)))
+    }
     return ret
 
 
@@ -41,10 +45,10 @@ if __name__ == '__main__':
     #     print(line)
     ginkgo_dryrun = list(map(lambda x: remove_format(x), stdin))
     # print(ginkgo_dryrun)
-    spec_names = extract_ginkgo_specs(ginkgo_dryrun)
-    github_action_matrix = {
-        'job': spec_names
+    specs = extract_ginkgo_specs(ginkgo_dryrun)
+    matrix = {
+        'job_id': specs['job_ids']
     }
-    jobs = json.dumps(github_action_matrix).replace('"', '\\"')
-    # print(jobs, end='')
-    os.system('echo "::set-output name=matrix::{}"'.format(jobs))
+    matrix_str = json.dumps(matrix).replace('"', '\\"')
+    # print(matrix, end='')
+    os.system('echo "::set-output name=matrix::{}"'.format(matrix_str))
