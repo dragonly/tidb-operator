@@ -1,5 +1,6 @@
 #!python3
 import json
+import os
 import re
 import sys
 
@@ -44,5 +45,6 @@ if __name__ == '__main__':
     github_action_matrix = {
         'job': spec_names
     }
-    ret = json.dumps(github_action_matrix).replace('"', '\\"')
-    print(ret, end='')
+    jobs = json.dumps(github_action_matrix).replace('"', '\\"')
+    # print(jobs, end='')
+    os.system('echo "::set-output name=matrix::{}"'.format(jobs))
