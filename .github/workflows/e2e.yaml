@@ -8,6 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
+      jobs: ${{ steps.set-matrix.outputs.jobs }}
     steps:
       - name: Set up Go 1.13
         uses: actions/setup-go@v1

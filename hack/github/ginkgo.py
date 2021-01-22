@@ -50,5 +50,8 @@ if __name__ == '__main__':
         'job_id': specs['job_ids']
     }
     matrix_str = json.dumps(matrix).replace('"', '\\"')
+    jobs = specs['jobs']
+    jobs_str = json.dumps(jobs).replace('"', '\\"')
     # print(matrix, end='')
     os.system('echo "::set-output name=matrix::{}"'.format(matrix_str))
+    os.system('echo "::set-output name=jobs::{}"'.format(jobs_str))
